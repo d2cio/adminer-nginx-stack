@@ -1,0 +1,39 @@
+version: '1.0'
+services:
+  - name: adminer
+    type: php
+    version: 5.6
+    extensions:
+      - mysqli
+      - opcache
+      - pdo_dblib
+      - pdo_firebird
+      - pdo_mysql
+      - pdo_oci
+      - pdo_pgsql
+    pecl:
+      - mongo
+    source:
+      type: download
+      url: https://github.com/vrana/adminer/releases/download/v4.3.1/adminer-4.3.1.zip
+    deployTo:
+      - adminer
+
+  - name: web
+    type: nginx
+    version: 1.13
+    ports:
+      - 80
+      - 443
+    remoteAccess: true
+    serviceFiles:
+      - name: adminer
+        src: ./configs/adminer.conf
+    deployTo:
+      - adminer
+
+hosts:
+  - name: adminer
+    requirements:
+      cores: 1
+      memory: 0.5
