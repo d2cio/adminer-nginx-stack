@@ -1,7 +1,7 @@
 version: '1.0'
 services:
   - name: adminer
-    type: php
+    type: phpNginx
     version: 7.3
     extensions:
       - mysqli
